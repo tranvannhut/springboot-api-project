@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.SpringBootApiDemoApplication;
 import com.example.demo.entities.Todo;
 import com.example.demo.services.TodoService;
 
 @RestController
 @RequestMapping(value = "/api")
 public class TodoController {
-
+	private static final Logger logger = LoggerFactory.getLogger(SpringBootApiDemoApplication.class);
 	@Autowired
 	private TodoService todoService;
 
@@ -28,6 +31,7 @@ public class TodoController {
 	public ResponseEntity<?> getAllTodo() {
 		List<Todo> listTodo = todoService.getAllTodo();
 //		new ResponseEntity<List<Todo>>(listTodo, HttpStatus.OK); // same statement below
+		logger.info("Get list Todos");
 		return ResponseEntity.ok().body(listTodo);
 	}
 
